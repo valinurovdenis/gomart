@@ -25,7 +25,7 @@ type AccrualOrder struct {
 
 //go:generate mockery --name AccrualOrderService
 type AccrualOrderService interface {
-	GetOrder(context context.Context, login string, number string) (AccrualOrder, error)
+	GetOrder(context context.Context, number string) (AccrualOrder, error)
 
 	EnqueueOrderUpdate(context context.Context, login string, number string) error
 }
@@ -109,7 +109,7 @@ func (s *AccrualOrderQueue) EnqueueOrderUpdate(ctx context.Context, login string
 	return nil
 }
 
-func (s *AccrualOrderQueue) GetOrder(ctx context.Context, login string, number string) (AccrualOrder, error) {
+func (s *AccrualOrderQueue) GetOrder(ctx context.Context, number string) (AccrualOrder, error) {
 	order, err := s.getAccrualOrder(ctx, number)
 	if err != nil {
 		return AccrualOrder{}, err

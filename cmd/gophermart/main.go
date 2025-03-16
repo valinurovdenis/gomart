@@ -47,7 +47,7 @@ func run() error {
 	accrualOrderService := accrualorder.NewAccrualOrderQueue(db, 10, accrualSettings, orderStorage)
 	auth := auth.NewAuthenticator(config.SecretKey, userStorage)
 	serviceStorage := service.NewServiceStorage(userStorage, withdrawStorage, orderStorage)
-	service := service.NewOrderService(*serviceStorage, accrualOrderService)
+	service := service.NewOrderService(serviceStorage, accrualOrderService)
 	handler := handlers.NewApiHandler(*service)
 
 	return http.ListenAndServe(config.RunAddress, handlers.MartRouter(*handler, *auth))

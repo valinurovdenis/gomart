@@ -21,7 +21,7 @@ func (s *OrderService) AddUserOrder(context context.Context, login string, numbe
 	if err := validators.OrderIsValid(number); err != nil {
 		return err
 	}
-	order, err := s.AccrualOrderService.GetOrder(context, login, number)
+	order, err := s.AccrualOrderService.GetOrder(context, number)
 	if err != nil {
 		return err
 	}
